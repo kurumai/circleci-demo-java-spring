@@ -82,6 +82,24 @@ jobs:
       # This will be empty for all nodes except the first one
       - store_artifacts:
           path: build/libs
+      - persist_to_workspace:
+          root: .
+          paths:
+            - "build/libs"
+
+  deploy_to_ec2:
+    docker:
+      - image: circleci/node:12
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Deploy to EC2
+          command: |
+            scp -o StrictHostKeyChecking=no ./build/libs/demo-0.0.1-SNAPSHOT.jar ubuntu@${EC2_FQDN}:
+            ssh ubuntu@${EC2_FQDN} sudo mv /home/ubuntu/demo-0.0.1-SNAPSHOT.jar /opt/app/
+            ssh ubuntu@${EC2_FQDN} sudo systemctl restart spring-boot
 
 workflows:
   version: 2
@@ -91,3 +109,9 @@ workflows:
     - test:
         requires:
           - build
+    - deploy_to_ec2:
+        filters:
+          branches:
+            only: master
+        requires:
+          - test
