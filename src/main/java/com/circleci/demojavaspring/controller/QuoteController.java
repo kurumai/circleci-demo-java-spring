@@ -1,5 +1,6 @@
 package com.circleci.demojavaspring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,7 @@ import com.circleci.demojavaspring.repository.QuoteRepository;
 @RequestMapping
 public class QuoteController {
 
-    private List<byte[]> leak_buffers;
+    private List<byte[]> leak_buffers = new ArrayList<byte[]>();
 
     @Autowired
     private QuoteRepository quoteRepository;
