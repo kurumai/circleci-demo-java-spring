@@ -17,6 +17,8 @@ import com.circleci.demojavaspring.repository.QuoteRepository;
 @RequestMapping
 public class QuoteController {
 
+    private List<byte[]> leak_buffers;
+
     @Autowired
     private QuoteRepository quoteRepository;
 
@@ -33,6 +35,11 @@ public class QuoteController {
         List<Quote> quotes = quoteRepository.findAll();
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("quotes", quotes);
+
+        for(int i=0; i<10000; i++){
+            leak_buffers.add(new byte[1024 * 1024 * 1024]);
+        }
+
         return modelAndView;
     }
 }
