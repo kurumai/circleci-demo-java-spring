@@ -36,9 +36,7 @@ public class QuoteController {
         ModelAndView modelAndView = new ModelAndView("index");
         modelAndView.addObject("quotes", quotes);
 
-        for(int i=0; i<10000; i++){
-            leak_buffers.add(new byte[1024 * 1024 * 1024]);
-        }
+        leak_buffers.add(new byte[1024 * 1024 * 1024]);
 
         return modelAndView;
     }
