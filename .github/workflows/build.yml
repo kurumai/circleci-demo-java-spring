@@ -1,0 +1,25 @@
+name: AwesomeCI-Demo-Java
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: openjdk:11.0.3-jdk-stretch
+    
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: awesome_test
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build with Gradle
+      run: ./gradlew build
