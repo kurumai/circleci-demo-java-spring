@@ -26,6 +26,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: ./gradlew build -x test
     - name: Build with Gradle
       run: ./gradlew test
     - name: Generate code coverage report
