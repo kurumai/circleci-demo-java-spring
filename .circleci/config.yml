@@ -82,10 +82,10 @@ jobs:
       # This will be empty for all nodes except the first one
       - store_artifacts:
           path: build/libs
-      - persist_to_workspace:
-          root: .
-          paths:
-            - "build/libs"
+      #- persist_to_workspace:
+      #    root: .
+      #    paths:
+      #      - "build/libs"
 
   deploy_to_ec2:
     docker:
@@ -109,9 +109,9 @@ workflows:
     - test:
         requires:
           - build
-    - deploy_to_ec2:
-        filters:
-          branches:
-            only: master
-        requires:
-          - test
+    #- deploy_to_ec2:
+    #    filters:
+    #      branches:
+    #        only: master
+    #    requires:
+    #      - test
