@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  dependencies:
     environment:
       # Configure the JVM and Gradle to avoid OOM errors
       _JAVA_OPTIONS: "-Xmx3g"

@@ -3,7 +3,24 @@ name: AwesomeCI-Demo-Java
 on: [push]
 
 jobs:
-  build:
+  dependencies:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: openjdk:11.0.3-jdk-stretch
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: ./gradlew build -x test
+    - name: Upload dependencies
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: build
+
+  test:
+    needs: dependencies
     runs-on: ubuntu-latest
     
     container:
@@ -22,12 +39,23 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: ./gradlew build -x test
+    - name: Download dependencies
+        uses: actions/download-artifact@v2
+        with:
+          name: dependencies
     - name: Build with Gradle
       run: ./gradlew test
     - name: Generate code coverage report
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
       run: ./gradlew assemble
-
+    - name: Store test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_results
+        path: build/reports/jacoco/test/html
+    - name: Store artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifact
+        path: build/libs
