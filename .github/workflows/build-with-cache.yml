@@ -3,7 +3,7 @@ name: build-with-cache
 on: [push]
 
 jobs:
-  dependencies:
+  dependencies-with-cache:
     runs-on: ubuntu-latest
     
     container:
@@ -38,7 +38,7 @@ jobs:
         path: build
 
   test:
-    needs: dependencies
+    needs: dependencies-with-cache
     runs-on: ubuntu-latest
     
     container:

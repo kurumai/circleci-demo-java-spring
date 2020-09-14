@@ -3,7 +3,7 @@ name: build-without-cache
 on: [push]
 
 jobs:
-  dependencies:
+  dependencies-without-cache:
     runs-on: ubuntu-latest
     
     container:
@@ -20,7 +20,7 @@ jobs:
         path: build
 
   test:
-    needs: dependencies
+    needs: dependencies-without-cache
     runs-on: ubuntu-latest
     
     container:

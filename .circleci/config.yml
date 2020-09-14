@@ -110,11 +110,11 @@ workflows:
     - dependencies-with-cache
     - test:
         requires:
-          - dependencies
+          - dependencies-with-cache
 
   build-without-cache:
     jobs:
     - dependencies-without-cache
     - test:
         requires:
-          - dependencies
+          - dependencies-without-cache
