@@ -33,7 +33,7 @@ jobs:
     #  with:
     #    sudo: false
     - name: Build with Gradle
-      run: ./gradlew test --stacktrace
+      run: ./gradlew test --scan
     - name: Generate code coverage report
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
