@@ -11,7 +11,7 @@ jobs:
     
     services:
       postgres:
-        image: postgres:12
+        image: postgres:12-alpine
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -33,7 +33,7 @@ jobs:
     #  with:
     #    sudo: false
     - name: Build with Gradle
-      run: ./gradlew test --scan
+      run: ./gradlew test --stacktrace
     - name: Generate code coverage report
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
