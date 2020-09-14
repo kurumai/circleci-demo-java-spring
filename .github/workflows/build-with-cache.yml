@@ -17,18 +17,18 @@ jobs:
         cache-name: cache-dependencies-gradle
       with:
         path: ~/.gradle/caches
-        key: v1-gradle-cache-${{ hashFiles('build.gradle') }}
+        key: v2-gradle-cache-${{ hashFiles('build.gradle') }}
         restore-keys: |
-          v1-gradle-cache-${{ hashFiles('build.gradle') }}
+          v2-gradle-cache-${{ hashFiles('build.gradle') }}
     - name: Cache dependencies - gradle wrapper
       uses: actions/cache@v2
       env:
         cache-name: cache-dependencies-gradle-wrapper
       with:
         path: ~/.gradle/wrapper
-        key: v1-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+        key: v2-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
         restore-keys: |
-          v1-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+          v2-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
     - name: Install dependencies
       run: ./gradlew build -x test
     - name: Upload dependencies
