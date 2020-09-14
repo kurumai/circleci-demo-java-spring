@@ -1,4 +1,4 @@
-name: AwesomeCI-Demo-Java
+name: build-without-cache
 
 on: [push]
 

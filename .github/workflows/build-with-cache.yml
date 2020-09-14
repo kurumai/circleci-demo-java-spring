@@ -1,0 +1,79 @@
+name: build-with-cache
+
+on: [push]
+
+jobs:
+  dependencies:
+    runs-on: ubuntu-latest
+    
+    container:
+      image: openjdk:11.0.3-jdk-stretch
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Cache dependencies - gradle
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-dependencies-gradle
+      with:
+        path: ~/.gradle/caches
+        key: v1-gradle-cache-${{ hashFiles('build.gradle') }}
+        restore-keys: |
+          v1-gradle-cache-${{ hashFiles('build.gradle') }}
+    - name: Cache dependencies - gradle wrapper
+      uses: actions/cache@v2
+      env:
+        cache-name: cache-dependencies-gradle-wrapper
+      with:
+        path: ~/.gradle/wrapper
+        key: v1-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+        restore-keys: |
+          v1-gradle-cache-${{ hashFiles('gradle/wrapper/gradle-wrapper.properties') }}
+    - name: Install dependencies
+      run: ./gradlew build -x test
+    - name: Upload dependencies
+      uses: actions/upload-artifact@v2
+      with:
+        name: dependencies
+        path: build
+
+  test:
+    needs: dependencies
+    runs-on: ubuntu-latest
+    
+    container:
+      image: openjdk:11.0.3-jdk-stretch
+    
+    services:
+      postgres:
+        image: postgres:12-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: circle_test
+        ports:
+        - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download dependencies
+      uses: actions/download-artifact@v2
+      with:
+        name: dependencies
+    - name: Build with Gradle
+      run: ./gradlew test
+    - name: Generate code coverage report
+      run: ./gradlew jacocoTestReport
+    - name: Assemble JAR
+      run: ./gradlew assemble
+    - name: Store test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test_results
+        path: build/reports/jacoco/test/html
+    - name: Store artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: artifact
+        path: build/libs
