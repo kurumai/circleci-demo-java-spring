@@ -34,3 +34,5 @@ jobs:
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
       run: ./gradlew assemble
+
+      
