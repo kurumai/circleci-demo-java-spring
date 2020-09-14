@@ -29,7 +29,9 @@ jobs:
     - name: Install dependencies
       run: ./gradlew build -x test
     - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v1
+      uses: mxschmitt/action-tmate@v3
+      with:
+        sudo: false
     - name: Build with Gradle
       run: ./gradlew test --stacktrace
     - name: Generate code coverage report
