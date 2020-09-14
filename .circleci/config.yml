@@ -107,10 +107,10 @@ workflows:
   version: 2
   workflow:
     jobs:
-    - build
+    - dependencies
     - test:
         requires:
-          - build
+          - dependencies
     #- deploy_to_ec2:
     #    filters:
     #      branches:

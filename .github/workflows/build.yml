@@ -40,9 +40,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Download dependencies
-        uses: actions/download-artifact@v2
-        with:
-          name: dependencies
+      uses: actions/download-artifact@v2
+      with:
+        name: dependencies
     - name: Build with Gradle
       run: ./gradlew test
     - name: Generate code coverage report
