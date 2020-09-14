@@ -23,16 +23,15 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: ./gradlew build -x test
+      run: ./gradlew build -x test_actions
     #- name: Setup tmate session
     #  uses: mxschmitt/action-tmate@v3
     #  with:
     #    sudo: false
     - name: Build with Gradle
-      run: ./gradlew test --stacktrace
+      run: ./gradlew test_actions --stacktrace
     - name: Generate code coverage report
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
       run: ./gradlew assemble
 
-      
