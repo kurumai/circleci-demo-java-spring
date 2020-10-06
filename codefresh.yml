@@ -14,7 +14,7 @@ steps:
   Test:
     title: Compile/Unit test
     stage: test
-    image: gradle:5.5-jdk11
+    image: openjdk:11.0.3-jdk-stretch
     services:
       name: postgres
       composition:
@@ -27,6 +27,7 @@ steps:
           ports:
             - 5432
     commands:
+      - ./gradlew build -x test
       - ./gradlew test --no-daemon --build-cache
       - ./gradlew jacocoTestReport
   BuildMyJar:
