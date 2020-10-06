@@ -1,11 +1,4 @@
 version: '1.0'
-services:
-  name: postgres
-  composition:
-    my-redis-db-host:
-      image: postgres:12-alpine
-      ports:
-        - 5432
 stages:
   - prepare
   - test
@@ -22,6 +15,17 @@ steps:
     title: Compile/Unit test
     stage: test
     image: gradle:5.5-jdk11
+    services:
+      name: postgres
+      composition:
+        postgres:
+          image: postgres:12-alpine
+          environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_DB=circle_test
+          ports:
+            - 5432
     commands:
       - gradle test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
   BuildMyJar:
