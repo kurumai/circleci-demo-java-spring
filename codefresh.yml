@@ -27,7 +27,7 @@ steps:
           ports:
             - 5432
     commands:
-      - ./gradlew test
+      - ./gradlew test --no-daemon --build-cache
       - ./gradlew jacocoTestReport
   BuildMyJar:
     title: Packaging Jar file
