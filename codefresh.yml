@@ -27,7 +27,8 @@ steps:
           ports:
             - 5432
     commands:
-      - gradle test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
+      - ./gradlew test
+      - ./gradlew jacocoTestReport
   BuildMyJar:
     title: Packaging Jar file
     stage: package
