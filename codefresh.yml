@@ -8,20 +8,25 @@ services:
         - 5432
 stages:
   - prepare
-  - build
+  - test
+  - package
 steps:
   main_clone:
     title: Cloning main repository...
     stage: prepare
     type: git-clone
-    repo: 'codefresh-contrib/gradle-sample-app'
-    revision: master
+    repo: 'kurumai/circleci-demo-java-spring'
+    revision: actions
     git: github
-  BuildingDockerImage:
-    title: Building Docker Image
-    stage: build
-    type: build
-    image_name: gradle-sample-app
-    working_directory: ./
-    tag: 'multi-stage'
-    dockerfile: Dockerfile
+  Test:
+    title: Compile/Unit test
+    stage: test
+    image: gradle:5.5.0-jdk8-alpine
+    commands:
+      - gradle test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
+  BuildMyJar:
+    title: Packaging Jar file
+    stage: package
+    image: gradle:5.5.0-jdk8-alpine
+    commands:
+      - gradle build --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
