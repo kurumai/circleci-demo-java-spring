@@ -21,12 +21,12 @@ steps:
   Test:
     title: Compile/Unit test
     stage: test
-    image: gradle:5.5.0-jdk8-alpine
+    image: gradle:5.5-jdk8
     commands:
       - gradle test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
   BuildMyJar:
     title: Packaging Jar file
     stage: package
-    image: gradle:5.5.0-jdk8-alpine
+    image: gradle:5.5-jdk8
     commands:
       - gradle build --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
