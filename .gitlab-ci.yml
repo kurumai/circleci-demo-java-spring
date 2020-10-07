@@ -16,6 +16,8 @@ variables:
     POSTGRES_HOST_AUTH_METHOD: trust
 
 build:
+    except: # except or only
+        - ci-tools@kurumai/circleci-demo-java-spring
     stage: build
     image: openjdk:11.0.3-jdk-stretch
     script:
@@ -26,6 +28,8 @@ build:
             - build/libs/*.jar
 
 test:
+    except: # except or only
+        - ci-tools@kurumai/circleci-demo-java-spring
     stage: test
     image: openjdk:11.0.3-jdk-stretch
     script:

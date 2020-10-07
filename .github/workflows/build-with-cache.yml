@@ -1,7 +1,8 @@
 name: build-with-cache
 
 on: [push]
-
+  branches-ignore: # branches-ignore or branches
+    - ci-tools
 jobs:
   dependencies-with-cache:
     runs-on: ubuntu-latest

@@ -111,10 +111,15 @@ workflows:
     - test:
         requires:
           - dependencies-with-cache
-
+        filters:
+          branches:
+            ignore: ci-tools # ignore or only
   build-without-cache:
     jobs:
     - dependencies-without-cache
     - test:
         requires:
           - dependencies-without-cache
+        filters:
+          branches:
+            ignore: ci-tools # ignore or only
