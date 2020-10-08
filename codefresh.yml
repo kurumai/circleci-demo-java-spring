@@ -2,7 +2,6 @@ version: '1.0'
 stages:
   - prepare
   - test
-  - package
 steps:
   main_clone:
     title: Cloning main repository...
@@ -28,11 +27,5 @@ steps:
             - 5432
     commands:
       - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
-      #- ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
+      - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       #- ./gradlew jacocoTestReport
-  BuildMyJar:
-    title: Packaging Jar file
-    stage: package
-    image: gradle:5.5-jdk11
-    commands:
-      - gradle build --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
