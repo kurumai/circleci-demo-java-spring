@@ -9,7 +9,7 @@ steps:
     stage: prepare
     type: git-clone
     repo: 'kurumai/circleci-demo-java-spring'
-    revision: actions
+    revision: ci-tools
     git: github
   Test:
     title: Compile/Unit test
