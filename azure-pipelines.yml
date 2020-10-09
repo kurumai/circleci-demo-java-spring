@@ -5,7 +5,11 @@ jobs:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-    container: openjdk:11.0.3-jdk-stretch
+    containers:
+      - container: openjdk
+        image: openjdk:11.0.3-jdk-stretch
+      - container: postgres
+        image: postgres:12-alpine
     steps:
       - task: Cache@2
         inputs:
