@@ -5,7 +5,6 @@ jobs:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-    container: openjdk:11.0.3-jdk-stretch
     steps:
       - task: Cache@2
         inputs:
@@ -28,7 +27,6 @@ jobs:
     dependsOn: Build
     pool:
       vmImage: 'ubuntu-latest'
-    container: openjdk:11.0.3-jdk-stretch
     steps:
       - task: Cache@2
         inputs:
