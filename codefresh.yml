@@ -31,3 +31,5 @@ steps:
       - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew jacocoTestReport
       - ./gradlew assemble
+
+      
