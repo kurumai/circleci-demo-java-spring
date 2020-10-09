@@ -39,7 +39,8 @@ jobs:
     pool:
       vmImage: 'ubuntu-latest'
     container: openjdk
-    services: postgres
+    services:
+      postgres:
     steps:
       - task: Cache@2
         inputs:
