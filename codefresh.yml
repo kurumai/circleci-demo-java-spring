@@ -13,7 +13,8 @@ steps:
   Test:
     title: Compile/Unit test
     stage: test
-    image: openjdk:11.0.3-jdk-stretch
+    #image: openjdk:11.0.3-jdk-stretch
+    image: gradle:jdk11
     services:
       name: postgres
       composition:
