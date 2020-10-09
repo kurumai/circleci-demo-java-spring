@@ -1,28 +1,33 @@
 trigger:
 - ci-tools
 
+resources:
+  containers:
+  - container: openjdk
+    image: openjdk:11.0.3-jdk-stretch
+  - container: postgres
+    image: postgres:12-alpine
+    ports:
+      - 5432
+
 jobs:
   - job: Build
     pool:
       vmImage: 'ubuntu-latest'
-    containers:
-      - container: openjdk
-        image: openjdk:11.0.3-jdk-stretch
-      - container: postgres
-        image: postgres:12-alpine
+    container: openjdk
     steps:
-      - task: Cache@2
-        inputs:
-          key: gradle-wrapper
-          restoreKeys: gradle-wrapper
-          path: ./.gradle/wrapper
-          displayName: Cache Gradle Wrapper Dependencies
-      - task: Cache@2
-        inputs:
-          key: gradle-caches
-          restoreKeys: gradle-caches
-          path: ./.gradle/caches
-          displayName: Cache Gradle Dependencies
+#      - task: Cache@2
+#        inputs:
+#          key: gradle-wrapper
+#          restoreKeys: gradle-wrapper
+#          path: ./.gradle/wrapper
+#          displayName: Cache Gradle Wrapper Dependencies
+#      - task: Cache@2
+#        inputs:
+#          key: gradle-caches
+#          restoreKeys: gradle-caches
+#          path: ./.gradle/caches
+#          displayName: Cache Gradle Dependencies
       - bash: ./gradlew build -x test --no-daemon
       - bash: ls -la
       - bash: ls -laR .gradle/
@@ -33,7 +38,8 @@ jobs:
     dependsOn: Build
     pool:
       vmImage: 'ubuntu-latest'
-    container: openjdk:11.0.3-jdk-stretch
+    container: openjdk
+    services: postgres
     steps:
       - task: Cache@2
         inputs:
