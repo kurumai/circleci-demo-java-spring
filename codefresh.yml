@@ -13,7 +13,6 @@ steps:
   Test:
     title: Compile/Unit test
     stage: test
-    #image: openjdk:11.0.3-jdk-stretch
     image: gradle:jdk11
     services:
       name: postgres
@@ -29,4 +28,4 @@ steps:
     commands:
       - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
-      #- ./gradlew jacocoTestReport
+      - ./gradlew jacocoTestReport
