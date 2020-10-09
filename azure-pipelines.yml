@@ -25,7 +25,7 @@ jobs:
 
 
   - job: Test
-    dependsOn: Dependencies
+    dependsOn: Build
     pool:
       vmImage: 'ubuntu-latest'
     container: openjdk:11.0.3-jdk-stretch
