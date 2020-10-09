@@ -1,17 +1,32 @@
-image: openjdk:11.0.3-jdk-stretch
-
 pipelines:
-  default:
-    - step:
-        script:
-          - ./gradlew build -x test
-          - ./gradlew test
-          - ./gradlew jacocoTestReport
-          - ./gradlew assemble
-        services:
-          - database
+  branches:
+    ci-tools:
+      - step:
+          name: dependencies
+          image: openjdk:11.0.3-jdk-stretch
+          caches:
+            - gradle
+            - gradlewrapper
+          script:
+            - ./gradlew build -x test
+      - step:
+          name: test
+          image: openjdk:11.0.3-jdk-stretch
+          caches:
+            - gradle
+            - gradlewrapper
+          script:
+            - ./gradlew test
+            - ./gradlew jacocoTestReport
+            - mkdir -p "/opt/atlassian/pipelines/agent/build/test-reports/"
+            - cp -r build/test-results/test /opt/atlassian/pipelines/agent/build/test-reports/
+            - ./gradlew assemble
+          services:
+            - database
 
 definitions:
+  caches:
+    gradlewrapper: ~/.gradle/wrapper
   services:
     database:
       image: postgres:12-alpine
