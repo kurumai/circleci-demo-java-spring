@@ -3,13 +3,17 @@ stages:
   - prepare
   - test
 steps:
-  dependencies:
-    title: dependencies
+  clone:
+    title: clone
     stage: prepare
     type: git-clone
     repo: 'kurumai/circleci-demo-java-spring'
     revision: ci-tools
     git: github
+  dependencies:
+    title: dependencies
+    stage: prepare
+    image: gradle:jdk11
     commands:
       - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
   test:
@@ -32,4 +36,3 @@ steps:
       - ./gradlew jacocoTestReport
       - ./gradlew assemble
 
-      
