@@ -1,0 +1,21 @@
+image: openjdk:11.0.3-jdk-stretch
+
+pipelines:
+  default:
+    - step:
+      script:
+        - ./gradlew build -x test
+        - ./gradlew test
+        - ./gradlew jacocoTestReport
+        - ./gradlew assemble
+      services:
+        - database
+
+definitions:
+  services:
+    database:
+      image: postgres:12-alpine
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: circle_test
