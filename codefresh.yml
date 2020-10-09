@@ -3,15 +3,17 @@ stages:
   - prepare
   - test
 steps:
-  main_clone:
-    title: Cloning main repository...
+  dependencies:
+    title: dependencies
     stage: prepare
     type: git-clone
     repo: 'kurumai/circleci-demo-java-spring'
     revision: ci-tools
     git: github
-  Test:
-    title: Compile/Unit test
+    commands:
+      - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
+  test:
+    title: test
     stage: test
     image: gradle:jdk11
     services:
@@ -26,6 +28,6 @@ steps:
           ports:
             - 5432
     commands:
-      - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew jacocoTestReport
+      - ./gradlew assemble
