@@ -110,22 +110,22 @@ workflows:
     - dependencies-with-cache:
         filters:
           branches:
-            ignore: ci-tools # ignore or only
+            only: ci-tools # ignore or only
     - test:
         requires:
           - dependencies-with-cache
         filters:
           branches:
-            ignore: ci-tools # ignore or only
+            only: ci-tools # ignore or only
   build-without-cache:
     jobs:
     - dependencies-without-cache:
         filters:
           branches:
-            ignore: ci-tools # ignore or only
+            only: ci-tools # ignore or only
     - test:
         requires:
           - dependencies-without-cache
         filters:
           branches:
-            ignore: ci-tools # ignore or only
+            only: ci-tools # ignore or only

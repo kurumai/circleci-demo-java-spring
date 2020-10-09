@@ -9,16 +9,16 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-steps:
-- task: Gradle@2
-  inputs:
-    gradleWrapperFile: 'gradlew'
-    tasks: 'build'
-    publishJUnitResults: true
-    testResultsFiles: '**/TEST-*.xml'
-    codeCoverageToolOption: 'JaCoCo'
-    codeCoverageClassFilesDirectories: 'build/classes/main/'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    gradleOptions: '-Xmx3072m'
-    sonarQubeRunAnalysis: false
+container: openjdk:11.0.3-jdk-stretch
+
+jobs:
+  - job: Dependencies
+  steps:
+    - bash: ./gradlew build -x test
+
+  - job: Test
+  steps:
+    - bash: ./gradlew test
+    - bash: ./gradlew jacocoTestReport
+    - bash: ./gradlew assemble
+    
