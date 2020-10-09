@@ -1,7 +1,6 @@
 version: '1.0'
 stages:
   - prepare
-  - dependencies
   - test
 steps:
   clone:
@@ -13,7 +12,7 @@ steps:
     git: github
   dependencies:
     title: dependencies
-    stage: dependencies
+    stage: test
     image: gradle:jdk11
     commands:
       - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
