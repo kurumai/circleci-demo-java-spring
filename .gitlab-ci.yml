@@ -1,37 +1,44 @@
 stages:
-    - build
-    - test
+  - prepare
+  - test
 
 before_script:
-    - chmod +x ./gradlew
-    - export GRADLE_USER_HOME=`pwd`/.gradle
+  - chmod +x ./gradlew
+  - export GRADLE_USER_HOME=`pwd`/.gradle
 
+cache:
+  key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+  
 services:
-    - postgres:12-alpine
+  - postgres:12-alpine
 
 variables:
-    POSTGRES_USER: postgres
-    POSTGRES_PASSWORD: postgres
-    POSTGRES_DB: circle_test
-    POSTGRES_HOST_AUTH_METHOD: trust
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: circle_test
+  POSTGRES_HOST_AUTH_METHOD: trust
 
-build:
-    except: # except or only
-        - ci-tools@kurumai/circleci-demo-java-spring
-    stage: build
-    image: openjdk:11.0.3-jdk-stretch
-    script:
-        - ./gradlew build -x test
-    artifacts:
-        name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}"
-        paths:
-            - build/libs/*.jar
+prepare:
+  only: # except or only
+    - ci-tools@kurumai/circleci-demo-java-spring
+  stage: prepare
+  image: openjdk:11.0.3-jdk-stretch
+  script:
+    - ./gradlew build -x test
 
 test:
-    except: # except or only
-        - ci-tools@kurumai/circleci-demo-java-spring
-    stage: test
-    image: openjdk:11.0.3-jdk-stretch
-    script:
-        - ./gradlew test
-        - ./gradlew jacocoTestReport
+  only: # except or only
+    - ci-tools@kurumai/circleci-demo-java-spring
+  stage: test
+  image: openjdk:11.0.3-jdk-stretch
+  script:
+    - ./gradlew test
+    - ./gradlew jacocoTestReport
+    - ./gradlew assemble
+  artifacts:
+    name: "${CI_PROJECT_NAME}_${CI_COMMIT_REF_NAME}"
+    paths:
+      - build/libs/*.jar
