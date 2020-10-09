@@ -20,4 +20,3 @@ definitions:
         POSTGRES_PASSWORD: postgres
         POSTGRES_DB: circle_test
 
-        
