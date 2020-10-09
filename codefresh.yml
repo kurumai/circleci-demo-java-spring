@@ -1,19 +1,19 @@
 version: '1.0'
 stages:
-  - prepare
+  - build
   - test
 steps:
   main_clone:
     title: Cloning main repository...
-    stage: prepare
+    stage: build
     type: git-clone
     repo: 'kurumai/circleci-demo-java-spring'
     revision: ci-tools
     git: github
-    
-  Dependencies:
-    title: Dependencies
-    stage: test
+
+  build:
+    title: build
+    stage: build
     image: gradle:jdk11
     commands:
       - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2

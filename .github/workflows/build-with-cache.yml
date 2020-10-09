@@ -5,7 +5,7 @@ on:
     branches-ignore: # branches-ignore or branches
       - ci-tools
 jobs:
-  dependencies-with-cache:
+  build-with-cache:
     runs-on: ubuntu-latest
     
     container:
@@ -40,7 +40,7 @@ jobs:
         path: build
 
   test:
-    needs: dependencies-with-cache
+    needs: build-with-cache
     runs-on: ubuntu-latest
     
     container:

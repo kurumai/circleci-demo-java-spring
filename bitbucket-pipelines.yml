@@ -2,7 +2,7 @@ pipelines:
   branches:
     ci-tools:
       - step:
-          name: dependencies
+          name: build
           image: openjdk:11.0.3-jdk-stretch
           caches:
             - gradle

@@ -6,7 +6,7 @@ on:
       - ci-tools
 
 jobs:
-  dependencies-without-cache:
+  build-without-cache:
     runs-on: ubuntu-latest
     
     container:
@@ -23,7 +23,7 @@ jobs:
         path: build
 
   test:
-    needs: dependencies-without-cache
+    needs: build-without-cache
     runs-on: ubuntu-latest
     
     container:
