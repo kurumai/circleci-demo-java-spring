@@ -6,17 +6,18 @@
 trigger:
 - ci-tools
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-container: openjdk:11.0.3-jdk-stretch
-
 jobs:
   - job: Dependencies
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: openjdk:11.0.3-jdk-stretch
     steps:
       - bash: ./gradlew build -x test
 
   - job: Test
+    pool:
+      vmImage: 'ubuntu-latest'
+    container: openjdk:11.0.3-jdk-stretch
     steps:
       - bash: ./gradlew test
       - bash: ./gradlew jacocoTestReport
