@@ -13,12 +13,11 @@ container: openjdk:11.0.3-jdk-stretch
 
 jobs:
   - job: Dependencies
-  steps:
-    - bash: ./gradlew build -x test
+    steps:
+      - bash: ./gradlew build -x test
 
   - job: Test
-  steps:
-    - bash: ./gradlew test
-    - bash: ./gradlew jacocoTestReport
-    - bash: ./gradlew assemble
-    
+    steps:
+      - bash: ./gradlew test
+      - bash: ./gradlew jacocoTestReport
+      - bash: ./gradlew assemble
