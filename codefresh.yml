@@ -10,6 +10,13 @@ steps:
     repo: 'kurumai/circleci-demo-java-spring'
     revision: ci-tools
     git: github
+    
+  Dependencies:
+    title: Dependencies
+    stage: test
+    image: gradle:jdk11
+    commands:
+      - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
   Test:
     title: Compile/Unit test
     stage: test
@@ -26,6 +33,6 @@ steps:
           ports:
             - 5432
     commands:
-      - ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2
       - ./gradlew jacocoTestReport
+      - ./gradlew assemble
