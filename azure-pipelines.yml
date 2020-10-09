@@ -19,7 +19,7 @@ jobs:
           restoreKeys: gradle-caches
           path: ./.gradle/caches
           displayName: Cache Gradle Dependencies
-      - bash: ./gradlew build -x test
+      - bash: ./gradlew build -x test --no-daemon
       - bash: ls -la
       - bash: ls -laR .gradle/
 

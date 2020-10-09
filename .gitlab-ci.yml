@@ -24,7 +24,7 @@ variables:
 build:
   only: # except or only
     - ci-tools@kurumai/circleci-demo-java-spring
-  stage: prepare
+  stage: build
   image: openjdk:11.0.3-jdk-stretch
   script:
     - ./gradlew build -x test
