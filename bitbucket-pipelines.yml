@@ -3,13 +3,13 @@ image: openjdk:11.0.3-jdk-stretch
 pipelines:
   default:
     - step:
-      script:
-        - ./gradlew build -x test
-        - ./gradlew test
-        - ./gradlew jacocoTestReport
-        - ./gradlew assemble
-      services:
-        - database
+        script:
+          - ./gradlew build -x test
+          - ./gradlew test
+          - ./gradlew jacocoTestReport
+          - ./gradlew assemble
+        services:
+          - database
 
 definitions:
   services:
