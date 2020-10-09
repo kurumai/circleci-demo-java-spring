@@ -22,6 +22,7 @@ jobs:
       - bash: ./gradlew build -x test --no-daemon
       - bash: ls -la
       - bash: ls -laR .gradle/
+      - bash: cat .gradle/buildOutputCleanup/cache.properties
 
 
   - job: Test
