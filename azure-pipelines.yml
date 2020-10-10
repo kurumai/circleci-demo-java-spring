@@ -5,7 +5,7 @@ resources:
   containers:
   - container: openjdk
     image: openjdk:11.0.3-jdk-stretch
-  - container: postgres12
+  - container: postgres
     image: postgres:12-alpine
     ports:
       - 5432
@@ -40,7 +40,7 @@ jobs:
       vmImage: 'ubuntu-latest'
     container: openjdk
     services:
-      postgres: postgres12
+      postgres: postgres
     variables:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
