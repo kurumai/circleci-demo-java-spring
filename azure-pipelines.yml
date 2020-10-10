@@ -7,11 +7,12 @@ resources:
     image: openjdk:11.0.3-jdk-stretch
   - container: postgres
     image: postgres:12-alpine
-    variables:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: circle_test
-      POSTGRES_HOST_AUTH_METHOD: trust
+
+variables:
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: circle_test
+  POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
   - job: Build
@@ -57,6 +58,6 @@ jobs:
 #          restoreKeys: gradle-caches
 #          path: ./.gradle/caches
 #          displayName: Cache Gradle Dependencies
-      - bash: ./gradlew test --tests com.circleci.demojavaspring.localhost.*Test
+      - bash: ./gradlew test --tests com.circleci.demojavaspring.postgres.*Test
       - bash: ./gradlew jacocoTestReport
       - bash: ./gradlew assemble
