@@ -26,6 +26,7 @@ pipelines:
 
 definitions:
   caches:
+    gradle: ~/.gradle/caches
     gradlewrapper: ~/.gradle/wrapper
   services:
     postgres:
