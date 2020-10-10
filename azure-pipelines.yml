@@ -7,6 +7,8 @@ resources:
     image: openjdk:11.0.3-jdk-stretch
   - container: postgres
     image: postgres:12-alpine
+    ports:
+    - 5432
 
 variables:
   POSTGRES_USER: postgres
