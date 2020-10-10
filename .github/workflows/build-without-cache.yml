@@ -47,7 +47,7 @@ jobs:
       with:
         name: dependencies
     - name: Build with Gradle
-      run: ./gradlew test --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.postgres.*Test
+      run: ./gradlew test --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.postgres.\*Test
     - name: Generate code coverage report
       run: ./gradlew jacocoTestReport
     - name: Assemble JAR
