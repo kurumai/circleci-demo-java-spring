@@ -16,7 +16,7 @@ pipelines:
             - gradle
             - gradlewrapper
           script:
-            - ./gradlew test
+            - ./gradlew test --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.localhost.*Test
             - ./gradlew jacocoTestReport
             - mkdir -p "/opt/atlassian/pipelines/agent/build/test-reports/"
             - cp -r build/test-results/test /opt/atlassian/pipelines/agent/build/test-reports/
@@ -30,7 +30,6 @@ definitions:
     gradlewrapper: ~/.gradle/wrapper
   services:
     postgres:
-      name: postgres
       image: postgres:12-alpine
       environment:
         POSTGRES_USER: postgres

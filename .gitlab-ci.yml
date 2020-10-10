@@ -35,7 +35,7 @@ test:
   stage: test
   image: openjdk:11.0.3-jdk-stretch
   script:
-    - ./gradlew test
+    - ./gradlew test --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.postgres.*Test
     - ./gradlew jacocoTestReport
     - ./gradlew assemble
   artifacts:

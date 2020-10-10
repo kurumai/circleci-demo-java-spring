@@ -67,7 +67,7 @@ jobs:
           command: |
             cd src/test/java
             # Get list of classnames of tests that should run on this node
-            CLASSNAMES=$(circleci tests glob "**/*.java" \
+            CLASSNAMES=$(circleci tests glob "com/circleci/demojavaspring/*.java" "com/circleci/demojavaspring/postgres/*.java" \
               | cut -c 1- | sed 's@/@.@g' \
               | sed 's/.\{5\}$//' \
               | circleci tests split --split-by=timings --timings-type=classname)
