@@ -30,6 +30,7 @@ definitions:
     gradlewrapper: ~/.gradle/wrapper
   services:
     postgres:
+      name: postgres
       image: postgres:12-alpine
       environment:
         POSTGRES_USER: postgres

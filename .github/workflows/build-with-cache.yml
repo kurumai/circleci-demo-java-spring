@@ -2,7 +2,7 @@ name: build-with-cache
 
 on:
   push:
-    branches-ignore: # branches-ignore or branches
+    branches: # branches-ignore or branches
       - ci-tools
 jobs:
   build-with-cache:
