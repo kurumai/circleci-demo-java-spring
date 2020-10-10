@@ -22,13 +22,13 @@ pipelines:
             - cp -r build/test-results/test /opt/atlassian/pipelines/agent/build/test-reports/
             - ./gradlew assemble
           services:
-            - database
+            - postgres
 
 definitions:
   caches:
     gradlewrapper: ~/.gradle/wrapper
   services:
-    database:
+    postgres:
       image: postgres:12-alpine
       environment:
         POSTGRES_USER: postgres
