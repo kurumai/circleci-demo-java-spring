@@ -1,4 +1,4 @@
-package com.circleci.demojavaspring;
+package com.circleci.demojavaspring.localhost;
 
 import org.junit.Test;
 

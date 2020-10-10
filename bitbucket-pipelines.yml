@@ -16,7 +16,7 @@ pipelines:
             - gradle
             - gradlewrapper
           script:
-            - ./gradlew test --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.localhost.\*Test
+            - ./gradlew test com.circleci.demojavaspring.localhost.*Test
             - ./gradlew jacocoTestReport
             - mkdir -p "/opt/atlassian/pipelines/agent/build/test-reports/"
             - cp -r build/test-results/test /opt/atlassian/pipelines/agent/build/test-reports/

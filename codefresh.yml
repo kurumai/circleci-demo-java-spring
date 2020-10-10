@@ -33,6 +33,6 @@ steps:
           ports:
             - 5432
     commands:
-      - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2 --tests com.circleci.demojavaspring.\*Test,com.circleci.demojavaspring.postgres.\*Test
+      - ./gradlew test --no-daemon --build-cache --gradle-user-home=/codefresh/volume/.gradle -Dmaven.repo.local=/codefresh/volume/m2 --tests com.circleci.demojavaspring.postgres.*Test
       - ./gradlew jacocoTestReport
       - ./gradlew assemble

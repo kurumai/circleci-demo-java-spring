@@ -1,4 +1,5 @@
-package com.circleci.demojavaspring;
+package com.circleci.demojavaspring.postgres;
+
 
 import org.junit.Test;
 
