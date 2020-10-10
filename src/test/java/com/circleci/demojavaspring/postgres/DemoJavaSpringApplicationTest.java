@@ -1,4 +1,4 @@
-package com.circleci.demojavaspring.localhost;
+package com.circleci.demojavaspring.postgres;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ContextConfiguration
-@TestPropertySource("/test_localhost.properties")
-public class DemoJavaSpringApplicationTests {
+@TestPropertySource("/test_postgres.properties")
+public class DemoJavaSpringApplicationTest {
 
     @Test
     public void contextLoads() {
