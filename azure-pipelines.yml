@@ -57,6 +57,6 @@ jobs:
 #          restoreKeys: gradle-caches
 #          path: ./.gradle/caches
 #          displayName: Cache Gradle Dependencies
-      - bash: ./gradlew test --tests com.circleci.demojavaspring.postgres.*Test
+      - bash: ./gradlew test --tests com.circleci.demojavaspring.localhost.*Test
       - bash: ./gradlew jacocoTestReport
       - bash: ./gradlew assemble
