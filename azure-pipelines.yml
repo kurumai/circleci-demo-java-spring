@@ -23,18 +23,18 @@ jobs:
           restoreKeys: gradle-wrapper
           path: ./.gradle/wrapper
           displayName: Cache Gradle Wrapper Dependencies
-      - task: Cache@2
-        inputs:
-          key: gradle-caches
-          restoreKeys: gradle-caches
-          path: ./.gradle/caches
-          displayName: Cache Gradle Dependencies
+#     - task: Cache@2
+#        inputs:
+#          key: gradle-caches
+#          restoreKeys: gradle-caches
+#          path: ./.gradle/caches
+#          displayName: Cache Gradle Dependencies
       - bash: ./gradlew build -x test --no-daemon --build-cache 
       - bash: ls -laR
 
 
   - job: Build_and_Test
-    #dependsOn: Build
+    dependsOn: Build
     pool:
       vmImage: 'ubuntu-latest'
     container: openjdk
