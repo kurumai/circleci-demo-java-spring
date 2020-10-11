@@ -42,3 +42,4 @@ public class QuoteController {
         return modelAndView;
     }
 }
+

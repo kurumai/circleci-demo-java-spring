@@ -1,3 +1,4 @@
+platform: linux
 resources:
   - name: source
     type: git
@@ -12,3 +13,13 @@ jobs:
       - task: gradle
         file: source/ci/gradle.yml
 
+caches:
+  - path: .gradle
+
+  run:
+    path: bash
+    args:
+    - -exc
+    - |
+      gradle
+      
