@@ -29,14 +29,12 @@ jobs:
 #          restoreKeys: gradle-caches
 #          path: ./.gradle/caches
 #          displayName: Cache Gradle Dependencies
-      - bash: ./gradlew build -x test --no-daemon
-      - bash: ls -la
-      - bash: ls -laR .gradle/
-      - bash: cat .gradle/buildOutputCleanup/cache.properties
+      - bash: ./gradlew build -x test --no-daemon --build-cache build
+      - bash: ls -laR
 
 
-  - job: Test
-    dependsOn: Build
+  - job: Build_and_Test
+    #dependsOn: Build
     pool:
       vmImage: 'ubuntu-latest'
     container: openjdk
