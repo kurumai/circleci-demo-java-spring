@@ -19,17 +19,11 @@ jobs:
     steps:
       - task: Cache@2
         inputs:
-          key: gradle-wrapper
-          restoreKeys: gradle-wrapper
-          path: ./.gradle/wrapper
-          displayName: Cache Gradle Wrapper Dependencies
-      - task: Cache@2
-        inputs:
-          key: gradle-caches
-          restoreKeys: gradle-caches
-          path: ./.gradle/caches
+          key: gradle
+          restoreKeys: gradle
+          path: ./.gradle/`
           displayName: Cache Gradle Dependencies
-      - bash: ./gradlew build -x test --no-daemon --build-cache=./.gradle --gradle-user-home=./.gradle
+      - bash: ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=./.gradle
       - bash: ls -laR
 
 
@@ -41,18 +35,6 @@ jobs:
     services:
       postgres: postgres
     steps:
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-wrapper
-#          restoreKeys: gradle-wrapper
-#          path: ./.gradle/wrapper
-#          displayName: Cache Gradle Wrapper Dependencies
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-caches
-#          restoreKeys: gradle-caches
-#          path: ./.gradle/caches
-#          displayName: Cache Gradle Dependencies
       - bash: ./gradlew test --tests com.circleci.demojavaspring.postgres.*Test
       - bash: ./gradlew jacocoTestReport
       - bash: ./gradlew assemble
