@@ -23,13 +23,13 @@ jobs:
           restoreKeys: gradle-wrapper
           path: ./.gradle/wrapper
           displayName: Cache Gradle Wrapper Dependencies
-#     - task: Cache@2
-#        inputs:
-#          key: gradle-caches
-#          restoreKeys: gradle-caches
-#          path: ./.gradle/caches
-#          displayName: Cache Gradle Dependencies
-      - bash: ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=./.gradle
+      - task: Cache@2
+        inputs:
+          key: gradle-caches
+          restoreKeys: gradle-caches
+          path: ./.gradle/caches
+          displayName: Cache Gradle Dependencies
+      - bash: ./gradlew build -x test --no-daemon --build-cache=./.gradle --gradle-user-home=./.gradle
       - bash: ls -laR
 
 
