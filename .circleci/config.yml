@@ -117,10 +117,10 @@ workflows:
     - build-without-cache:
         filters:
           branches:
-            only: ci-tools # ignore or only
+            ignore: ci-tools # ignore or only
     - test:
         requires:
           - build-without-cache
         filters:
           branches:
-            only: ci-tools # ignore or only
+            ignore: ci-tools # ignore or only
