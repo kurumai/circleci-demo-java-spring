@@ -1,5 +1,5 @@
 trigger:
-- ci-tools-azure
+- ci-tools
 
 resources:
   containers:

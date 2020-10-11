@@ -1,0 +1,14 @@
+resources:
+  - name: source
+    type: git
+    source:
+      uri: https://github.com/kurumai/circleci-demo-java-spring
+      branch: ci-tools-concourse
+jobs:
+  - name: build
+    plan:
+      - get: source
+        trigger: true
+      - task: gradle
+        file: source/ci/gradle.yml
+
