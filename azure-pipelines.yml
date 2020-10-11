@@ -1,5 +1,5 @@
 trigger:
-- ci-tools
+- ci-tools-azure
 
 resources:
   containers:
@@ -7,14 +7,9 @@ resources:
     image: openjdk:11.0.3-jdk-stretch
   - container: postgres
     image: postgres:12-alpine
+    options: --env POSTGRES_USER=postgres --env POSTGRES_PASSWORD=postgres --env POSTGRES_DB=circle_test  --env POSTGRES_HOST_AUTH_METHOD=trust
     ports:
     - 5432
-
-variables:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: circle_test
-  POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
   - job: Build
@@ -22,23 +17,9 @@ jobs:
       vmImage: 'ubuntu-latest'
     container: openjdk
     steps:
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-wrapper
-#          restoreKeys: gradle-wrapper
-#          path: ./.gradle/wrapper
-#          displayName: Cache Gradle Wrapper Dependencies
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-caches
-#          restoreKeys: gradle-caches
-#          path: ./.gradle/caches
-#          displayName: Cache Gradle Dependencies
-      - bash: ./gradlew build -x test --no-daemon
-      - bash: ls -la
-      - bash: ls -laR .gradle/
-      - bash: cat .gradle/buildOutputCleanup/cache.properties
-
+      - bash: ./gradlew build -x test --no-daemon --build-cache --gradle-user-home=./.gradle
+      - publish: $(System.DefaultWorkingDirectory)/build
+        artifact: build
 
   - job: Test
     dependsOn: Build
@@ -48,18 +29,8 @@ jobs:
     services:
       postgres: postgres
     steps:
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-wrapper
-#          restoreKeys: gradle-wrapper
-#          path: ./.gradle/wrapper
-#          displayName: Cache Gradle Wrapper Dependencies
-#      - task: Cache@2
-#        inputs:
-#          key: gradle-caches
-#          restoreKeys: gradle-caches
-#          path: ./.gradle/caches
-#          displayName: Cache Gradle Dependencies
+      - download: current
+        artifact: build
       - bash: ./gradlew test --tests com.circleci.demojavaspring.postgres.*Test
       - bash: ./gradlew jacocoTestReport
       - bash: ./gradlew assemble
