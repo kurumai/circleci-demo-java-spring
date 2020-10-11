@@ -1,5 +1,5 @@
 trigger:
-- ci-tools
+- ci-tools-azure
 
 resources:
   containers:
@@ -7,14 +7,14 @@ resources:
     image: openjdk:11.0.3-jdk-stretch
   - container: postgres
     image: postgres:12-alpine
+    options: –name postgres
     ports:
     - 5432
-
-variables:
-  POSTGRES_USER: postgres
-  POSTGRES_PASSWORD: postgres
-  POSTGRES_DB: circle_test
-  POSTGRES_HOST_AUTH_METHOD: trust
+    variables:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: circle_test
+      POSTGRES_HOST_AUTH_METHOD: trust
 
 jobs:
   - job: Build
