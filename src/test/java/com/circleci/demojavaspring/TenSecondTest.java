@@ -7,7 +7,7 @@ public class TenSecondTest {
     @Test
     public void tenSecondTest() throws InterruptedException {
         //Thread.sleep(10000);
-        Thread.sleep(10);
+        Thread.sleep(1);
     }
 
 }

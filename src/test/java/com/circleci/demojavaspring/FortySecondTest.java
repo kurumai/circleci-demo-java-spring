@@ -7,7 +7,7 @@ public class FortySecondTest {
     @Test
     public void fortySecondTest() throws InterruptedException {
         //Thread.sleep(40000);
-        Thread.sleep(10);
+        Thread.sleep(1);
     }
 
 }
