@@ -15,6 +15,12 @@ jobs:
 
       - checkout
 
+      - run:
+          command: |
+            sudo add-apt-repository ppa:libreoffice/ppa
+            sudo apt update
+            sudo apt install libreoffice
+
       - restore_cache:
           key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       
